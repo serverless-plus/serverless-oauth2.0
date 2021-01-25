@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Serverless Login
+  p.lead Normal Login
+  section(class="input-box")
+    input(class="input",type="text",name="username",id="username",placeholder="username: serverless")
+    input(class="input",type="password",name="password",id="password",placeholder="password: serverless")
+    button(class="button",id="button") Submit
+  section(class="result-box",id="result-box")
+    p(id="result")
+  script(src=STATIC_URL+"/js/normal-login.js")

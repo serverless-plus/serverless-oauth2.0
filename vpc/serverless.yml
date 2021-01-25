@@ -1,0 +1,12 @@
+org: slsplus
+app: oauth2
+stage: dev
+
+component: vpc
+name: oauth2-vpc
+
+inputs:
+  region: ${env:REGION}
+  zone: ${env:ZONE}
+  vpcName: ${name}
+  subnetName: ${name}

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Serverless Login
+  p.lead Oauth2.0 Login
+  section(class="input-box")
+    button(class="button",id="button") Login
+  section(class="result-box",id="result-box")
+    p(id="result")
+  script(src=STATIC_URL+"/js/login.js")

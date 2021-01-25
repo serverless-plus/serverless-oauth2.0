@@ -1,0 +1,14 @@
+org: slsplus
+app: oauth2
+stage: dev
+
+component: cynosdb
+name: oauth2-db
+
+inputs:
+  region: ${env:REGION}
+  zone: ${env:ZONE}
+  vpcConfig:
+    vpcId: ${output:${stage}:${app}:${app}-vpc.vpcId}
+    subnetId: ${output:${stage}:${app}:${app}-vpc.subnetId}
+  enablePublicAccess: true

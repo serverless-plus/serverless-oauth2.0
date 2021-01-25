@@ -1,0 +1,46 @@
+org: slsplus
+app: oauth2
+stage: dev
+component: express
+name: oauth2
+
+inputs:
+  functionName: ${name}
+  region: ${env:REGION}
+  runtime: Nodejs12.16
+  src:
+    src: ./dist
+    exclude:
+      - .env
+      - '.git/**'
+      - 'docs/**'
+      - '__tests__/**'
+      - 'typings/**'
+      - '.github/**'
+      - 'node_modules/**'
+  layers:
+    - name: ${output:${stage}:${app}:${name}-layer.name}
+      version: ${output:${stage}:${app}:${name}-layer.version}
+  functionConf:
+    timeout: 120
+    vpcConfig:
+      vpcId: ${output:${stage}:${app}:${app}-vpc.vpcId}
+      subnetId: ${output:${stage}:${app}:${app}-vpc.subnetId}
+    environment:
+      variables:
+        NODE_ENV: production
+        SERVERLESS: true
+        STATIC_URL: ${output:${stage}:${app}:${app}-cos.url}
+        DB_HOST: ${output:${stage}:${app}:${app}-db.connection.ip}
+        DB_PORT: ${output:${stage}:${app}:${app}-db.connection.port}
+        DB_USER: root
+        DB_PASSWORD: ${output:${stage}:${app}:${app}-db.adminPassword}
+        DB_NAME: oauth2
+  apigatewayConf:
+    serviceName: serverless_oauth2
+    serviceTimeout: 120
+    environment: release
+    protocols:
+      - https
+    function:
+      functionQualifier: $DEFAULT

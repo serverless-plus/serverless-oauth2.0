@@ -1,0 +1,14 @@
+org: slsplus
+app: oauth2
+stage: dev
+
+component: cos
+name: oauth2-cos
+
+inputs:
+  bucket: ${name}
+  region: ${env:REGION}
+  src: ../src/public/
+  protocol: https
+  acl:
+    permissions: public-read

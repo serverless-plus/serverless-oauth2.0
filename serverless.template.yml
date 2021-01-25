@@ -1,0 +1,21 @@
+name: oauth2
+author: Serverless Plus
+org: Serverless Plus
+description: Deploy an serverless oauth2.0 application
+description-i18n:
+  zh-cn: 快速部署一个 Oauth2.0 应用,  Express.js + Typescript + Mysql
+keywords: tencent, serverless, express.js, typescript, mysql
+repo: https://github.com/serverless-plus/serverless-oauth2.0/tree/master
+readme: https://github.com/serverless-plus/serverless-oauth2.0/tree/master/README.md
+license: MIT
+src:
+  src: ./
+  exclude:
+    - '.env'
+    - '.git/**'
+    - '**/node_modules'
+    - '**/package-lock.json'
+    - '**/yarn.lock'
+    - '.DS_Store'
+  include:
+    - '.env.example'

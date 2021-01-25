@@ -1,0 +1,46 @@
+org: slsplus
+app: oauth2
+stage: dev
+
+component: apigateway
+name: oauth2-apigw
+
+inputs:
+  region: ${env:REGION}
+  protocols:
+    - http
+    - https
+  # 复用
+  serviceId: ${output:${stage}:${app}:oauth2.apigw.serviceId}
+  serviceName: serverless_oauth2
+  environment: release
+  endpoints:
+    - path: /oauth
+      protocol: HTTP
+      method: GET
+      apiName: oauthapi
+      authType: OAUTH
+      businessType: OAUTH
+      serviceType: HTTP
+      serviceConfig:
+        method: GET
+        path: /
+        url: https://${output:${stage}:${app}:oauth2.apigw.subDomain}
+      oauthConfig:
+        loginRedirectUrl: ${output:${stage}:${app}:oauth2.apigw.url}login
+        # 生成方式请参考官方文档：https://cloud.tencent.com/document/product/628/38393
+        publicKey: ${env:PUBLIC_KEY}
+        tokenLocation: authorization
+    - path: /post
+      protocol: HTTP
+      method: GET
+      apiName: postList
+      authType: OAUTH
+      businessType: NORMAL
+      authRelationApi:
+        path: /oauth
+        method: GET
+      function:
+        isIntegratedResponse: true
+        functionName: oauth2
+        functionQualifier: $DEFAULT
